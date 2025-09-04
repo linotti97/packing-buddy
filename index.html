@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Packing Buddy</title>
+  <meta name="description" content="App semplice per organizzare la valigia. Funziona offline." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Packing Buddy">
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
+  </script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>🧳 Packing Buddy</h1>
+    <button id="btnNewList" class="btn primary">Nuova lista</button>
+  </header>
+
+  <main>
+    <section class="lists-bar" id="listsBar"></section>
+
+    <section class="toolbar">
+      <div class="field">
+        <input id="itemInput" type="text" placeholder="Aggiungi elemento (es. '3x magliette')" />
+        <select id="categoryInput">
+          <option value="">Categoria</option>
+          <option>Abbigliamento</option>
+          <option>Toeletta</option>
+          <option>Elettronica</option>
+          <option>Documenti</option>
+          <option>Altro</option>
+        </select>
+        <button id="btnAdd" class="btn">Aggiungi</button>
+      </div>
+      <div class="actions">
+        <button id="btnTemplates" class="btn">Template</button>
+        <button id="btnShare" class="btn">Condividi</button>
+        <button id="btnExport" class="btn">Export</button>
+        <label class="switch">
+          <input type="checkbox" id="toggleWeights">
+          <span class="slider"></span>
+          <span class="label">Pesi</span>
+        </label>
+      </div>
+    </section>
+
+    <section id="summary" class="summary"></section>
+
+    <section id="items"></section>
+  </main>
+
+  <dialog id="dlgTemplates">
+    <h3>Template veloci</h3>
+    <div class="templates">
+      <button data-tpl="weekend">Weekend</button>
+      <button data-tpl="mare">Mare</button>
+      <button data-tpl="montagna">Montagna</button>
+      <button data-tpl="business">Business</button>
+    </div>
+    <div class="dlg-actions">
+      <button id="closeTemplates" class="btn">Chiudi</button>
+    </div>
+  </dialog>
+
+  <dialog id="dlgNewList">
+    <h3>Nuova lista</h3>
+    <input id="newListName" type="text" placeholder="Nome lista (es. Parigi)" />
+    <div class="dlg-actions">
+      <button id="createList" class="btn primary">Crea</button>
+      <button id="cancelList" class="btn">Annulla</button>
+    </div>
+  </dialog>
+
+  <footer class="app-footer">
+    <small>Funziona offline • Salva sul dispositivo • iPhone: “Aggiungi a Home” da Safari</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
